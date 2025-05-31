@@ -1,0 +1,319 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html {
+  height: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+  position: relative;
+}
+
+/* Background forest animation using multiple layers */
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background:
+    url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1920&q=80')
+    center center / cover no-repeat,
+    linear-gradient(rgba(0, 50, 20, 0.7), rgba(0, 20, 10, 0.9));
+  animation: backgroundMove 60s linear infinite;
+  z-index: -2;
+}
+
+/* Overlay gradient for better text visibility */
+.background::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.8));
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Gentle vertical panning */
+@keyframes backgroundMove {
+  0% {
+    background-position: center 0%;
+  }
+  50% {
+    background-position: center 10%;
+  }
+  100% {
+    background-position: center 0%;
+  }
+}
+
+/* Floating particles container */
+.particles {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Each particle */
+.particle {
+  position: absolute;
+  background: #40ff40;
+  border-radius: 50%;
+  opacity: 0.2;
+  box-shadow: 0 0 6px #40ff40;
+  animation: floatUpDown 6s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px #30cc30);
+}
+
+/* Different sizes for particles */
+.particle.small {
+  width: 6px;
+  height: 6px;
+  animation-duration: 4s;
+  opacity: 0.15;
+}
+.particle.medium {
+  width: 10px;
+  height: 10px;
+  animation-duration: 6s;
+}
+.particle.large {
+  width: 14px;
+  height: 14px;
+  animation-duration: 8s;
+  opacity: 0.25;
+}
+
+/* Floating animation */
+@keyframes floatUpDown {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0.2;
+  }
+  50% {
+    transform: translateY(-15px) translateX(5px);
+    opacity: 0.35;
+  }
+}
+
+/* Container style with fade-in and slide-up */
+.container {
+  position: relative;
+  max-width: 380px;
+  width: 90%;
+  background: rgba(0, 0, 0, 0.75);
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 30px rgba(0, 100, 40, 0.7);
+  backdrop-filter: blur(6px);
+  text-align: center;
+  margin: 8vh auto 4vh auto;
+  z-index: 10;
+
+  /* Animate container on load */
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeSlideUp 1.2s ease forwards;
+  transition: transform 0.3s ease;
+}
+
+/* Scale container on hover */
+.container:hover {
+  transform: translateY(0) scale(1.03);
+  box-shadow: 0 0 50px rgba(0, 255, 0, 0.8);
+}
+
+/* Fade and slide up */
+@keyframes fadeSlideUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Heading with pulse glow animation */
+.container h2 {
+  margin-bottom: 30px;
+  font-weight: 700;
+  font-size: 28px;
+  color: #a0f0a0;
+  text-shadow: 0 0 6px #10a010;
+  animation: pulseGlow 3s ease-in-out infinite;
+}
+
+/* Pulse glow animation */
+@keyframes pulseGlow {
+  0%, 100% {
+    text-shadow:
+      0 0 6px #10a010,
+      0 0 12px #40ff40,
+      0 0 18px #40ff40;
+  }
+  50% {
+    text-shadow:
+      0 0 10px #30cc30,
+      0 0 22px #70ff70,
+      0 0 30px #70ff70;
+  }
+}
+
+/* Inputs */
+.container input[type="text"],
+.container input[type="password"],
+.container input[type="email"] {
+  width: 100%;
+  padding: 14px 18px;
+  margin: 12px 0 24px 0;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  background: rgba(255 255 255 / 0.1);
+  color: #d0ffd0;
+  box-shadow: inset 0 0 6px #10a010;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  animation: inputGlowPulse 6s ease-in-out infinite;
+}
+
+.container input::placeholder {
+  color: #a8d8a8;
+  font-style: italic;
+}
+
+.container input:focus {
+  background: rgba(255 255 255 / 0.2);
+  box-shadow: 0 0 20px #40ff40;
+  outline: none;
+  animation-play-state: paused; /* pause pulse on focus */
+}
+
+/* Input pulse glow */
+@keyframes inputGlowPulse {
+  0%, 100% {
+    box-shadow: inset 0 0 6px #10a010;
+  }
+  50% {
+    box-shadow: inset 0 0 12px #30cc30;
+  }
+}
+
+/* Forgot password link */
+.forgot-password {
+  text-align: right;
+  margin-bottom: 20px;
+}
+
+.forgot-password a {
+  font-size: 0.9rem;
+  color: #90ff90;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.forgot-password a:hover {
+  color: #50ff50;
+  text-decoration: underline;
+}
+
+/* Buttons */
+.container button {
+  width: 100%;
+  padding: 14px 0;
+  font-size: 18px;
+  font-weight: 700;
+  background: linear-gradient(90deg, #40c057, #2f9e44);
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 0 15px #40ff40;
+  transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+  animation: buttonPulse 4s ease-in-out infinite;
+}
+
+/* Button pulse glow */
+@keyframes buttonPulse {
+  0%, 100% {
+    box-shadow: 0 0 15px #40ff40;
+  }
+  50% {
+    box-shadow: 0 0 25px #70ff70;
+  }
+}
+
+/* Button hover - bounce and color swap */
+.container button:hover {
+  background: linear-gradient(90deg, #2f9e44, #40c057);
+  box-shadow: 0 0 30px #70ff70;
+  animation-play-state: paused; /* pause pulse on hover */
+  animation: bounceButton 0.4s ease forwards;
+}
+
+/* Bounce animation */
+@keyframes bounceButton {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+/* Button active state */
+.container button:active {
+  transform: scale(0.97);
+  box-shadow: 0 0 10px #30cc30 inset;
+}
+
+/* Form footer */
+.form-footer {
+  margin-top: 20px;
+  font-size: 0.95rem;
+  color: #a0f0a0;
+}
+
+.form-footer a {
+  color: #71c971;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.form-footer a:hover {
+  color: #40ff40;
+}
+
+/* Footer with copyright and Instagram link */
+footer {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+  text-align: center;
+  color: #a0f0a0;
+  font-size: 0.9rem;
+  user-select: none;
+  z-index: 20;
+}
+
+footer a {
+  color: #71c971;
+  text-decoration: none;
+  margin-left: 6px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+footer a:hover {
+  color: #40ff40;
+}
+
+footer i.fab.fa-instagram {
+  vertical-align: middle;
+  margin-right: 6px;
+  font-size: 1.1rem;
+}
